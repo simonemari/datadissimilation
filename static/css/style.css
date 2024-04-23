@@ -1,0 +1,27 @@
+/* File: static/css/style.css */
+
+#bar-chart,
+#scatter-plot {
+    width: 100%; /* make the svg take up the full width of the div */
+    height: 100%; /* make the svg take up the full height of the div */
+}
+
+.bar {
+    fill: steelblue;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    height: 100vh;
+}
+
+.grid-item {
+    border: 1px solid #ddd;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
