@@ -6,7 +6,7 @@ var sumByYear = d3.rollup(data, v => d3.sum(v, d => d.cites), d => d.year);
 var chartData = Array.from(sumByYear, ([year, cites]) => ({year, cites}));
 
 var svg = d3.select("#bar-chart"),
-    margin = {top: 50, right: 30, bottom: 30, left: 50},
+    margin = {top: 30, right: 10, bottom: 20, left: 50},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
@@ -25,10 +25,16 @@ var maxCites = d3.max(chartData, function(d) { return d.cites; });
 // Impostiamo il dominio della scala y in base al valore massimo calcolato
 y.domain([0, maxCites]);
 
+// Create the x axis
 g.append("g")
     .attr("class", "axis axis--x")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("transform", "rotate(-45)")  // Rotate the labels
+    .style("text-anchor", "end")  // Anchor the text at the end to align it properly
+    .attr("dx", "-.8em")  // Adjust the x position of the labels
+    .attr("dy", ".15em");  // Adjust the y position of the labels
 
 g.append("g")
     .attr("class", "axis axis--y")
@@ -41,15 +47,15 @@ g.append("g")
     .text("Cites");
 
 // Creiamo le barre del grafico
-var bars = g.selectAll(".bar")
+var bars = g.selectAll(".bar-chart-bar")
     .data(chartData)
     .enter().append("rect")
-    .attr("class", "bar")  // Assicurati che questa riga sia presente
+    .attr("class", "bar-chart-bar")
     .attr("x", function(d) { return x(d.year); })
     .attr("y", function(d) { return y(d.cites); })
     .attr("width", x.bandwidth())
     .attr("height", function(d) { return height - y(d.cites); })
-    .attr("data-year", function(d) { return d.year; });  // Aggiungi questa riga
+    .attr("data-year", function(d) { return d.year; });
 
 // Creiamo i label per le barre, ma li rendiamo invisibili
 var labels = g.selectAll(".label")
@@ -67,16 +73,16 @@ var labels = g.selectAll(".label")
 
 
 // Quando il mouse passa sopra una barra, mostrare il label corrispondente
-bars.on("mouseover", function(event, d) {
+bars.on("mouseover", function(event) {
     // Selezioniamo il label corrispondente alla barra utilizzando il dato `d`
-    var label = svg.select(".label[data-year='" + d.year + "']");
+    var label = svg.select(".label[data-year='" + event.target.__data__.year + "']");
     label.style("visibility", "visible");
 });
 
 // Quando il mouse esce da una barra, nascondere il label corrispondente
-bars.on("mouseout", function(event, d) {
+bars.on("mouseout", function(event) {
     // Selezioniamo il label corrispondente alla barra utilizzando il dato `d`
-    var label = svg.select(".label[data-year='" + d.year + "']");
+    var label = svg.select(".label[data-year='" + event.target.__data__.year + "']");
     label.style("visibility", "hidden");
 });
 console.log(chartData);

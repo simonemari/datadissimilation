@@ -1,27 +1,53 @@
 /* File: static/css/style.css */
 
+#pie-chart,
+#pub-chart,
 #bar-chart,
 #scatter-plot {
     width: 100%; /* make the svg take up the full width of the div */
-    height: 100%; /* make the svg take up the full height of the div */
-}
-
-.bar {
-    fill: steelblue;
+    height: 100%; /* make the svg take up half the height of the div */
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 10px;
-    height: 100vh;
+    gap: 0px;
+    height: 80vh; /* Riduci l'altezza della griglia */
+
 }
+
 
 .grid-item {
     border: 1px solid #ddd;
-    padding: 20px;
+    padding: 10px; /* Reduce the padding */
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8f8; /* Cambia a seconda delle tue preferenze */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.checkbox-container label {
+    margin-right: 10px; /* Aggiungi un po' di margine a destra per separare le checkbox */
+}
+
+.pub-chart-bar {
+    fill: steelblue;
+}
+.bar-chart-bar {
+    fill: steelblue;
 }

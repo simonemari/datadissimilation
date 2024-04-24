@@ -2,6 +2,7 @@
 <html>
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
     <script>
         var data = {{ records|tojson|safe }};
     </script>
@@ -16,14 +17,30 @@
 
     <div class="grid-container">
         <div class="grid-item">
-            <svg id="bar-chart" width="750" height="600"></svg>
+            <svg id="bar-chart" width="600" height="300"></svg>
             <script src="{{ url_for('static', filename='js/bar_chart.js') }}"></script>
         </div>
         <div class="grid-item">
-            <svg id="scatter-plot" width="700" height="700"></svg>
+            <svg id="scatter-plot" width="600" height="300"></svg>
             <script src="{{ url_for('static', filename='js/scatter_plot.js') }}"></script>
         </div>
 
+        <div class="grid-item">
+            <svg id="pub-chart" width="600" height="400"></svg>
+            <script src="{{ url_for('static', filename='js/pub_chart.js') }}"></script>
+        </div>
+        <div class="grid-item">
+            <svg id="pie-chart" width="600" height="400"></svg>
+            <script src="{{ url_for('static', filename='js/pie_chart.js') }}"></script>
+        </div>
+
+    </div>
+
+    <div class="checkbox-container">
+        {% for year in range(2000, 2025) %}
+            <input type="checkbox" id="year{{year}}" name="year{{year}}" checked>
+            <label for="year{{year}}">{{year}}</label><br>
+        {% endfor %}
     </div>
 
 </body>
