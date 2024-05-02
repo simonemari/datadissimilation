@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/datatable.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
+
+    <script defer src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+    <script defer src="{{ url_for('static', filename='js/dataTables_script.js') }}"></script>
+
+
+</head>
+<body>
+    <div class="container">
+        <button class="nav-button" onclick="location.href='/d3'">Go to charts view</button>
+
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Cites</th>
+                    <th>Authors</th>
+                    <th>Title</th>
+                    <!-- Aggiungi altre colonne come necessario -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                    <tr>
+                        <td>{{ record.id }}</td>
+                        <td>{{ record.cites }}</td>
+                        <td>{{ record.authors }}</td>
+                        <td>{{ record.title }}</td>
+                        <!-- Aggiungi altre colonne come necessario -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+</body>
+</html>
