@@ -12,7 +12,7 @@ def datatables():
 
     # Eseguiamo una query per ottenere tutti i record dal database
     with engine.connect() as connection:
-        result = connection.execute(text("SELECT * FROM articles"))
+        result = connection.execute(text("SELECT id, cites, authors, title FROM articles"))
         records = [dict(row._mapping) for row in result]
 
     # Passiamo i record alla nostra pagina HTML

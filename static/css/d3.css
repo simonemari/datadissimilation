@@ -69,3 +69,13 @@
 .nav-button:hover {
     background-color: #007B9A; /* Cambia questo per modificare il colore di sfondo al passaggio del mouse */
 }
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    pointer-events: none; /* This makes sure the tooltip doesn't interfere with your mouse */
+}

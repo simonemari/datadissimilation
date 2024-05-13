@@ -63,16 +63,29 @@ function drawScatterPlot(data) {
     var colorScale = d3.scaleSequential().domain([0, d3.max(data, d => d.cites)]).interpolator(d3.interpolateCool);
     points.style("fill", d => colorScale(d.cites));
 
-    // Add interaction
-    points.on("mouseover", function(event, d) {
-        // Highlight the corresponding bar in the bar chart
-        var bar = d3.select("#bar-chart").select(".bar-chart-bar[data-year='" + d.year + "']");
-        bar.style("fill", "red");
-    }).on("mouseout", function(event, d) {
-        // Remove the highlight from the bar in the bar chart
-        var bar = d3.select("#bar-chart").select(".bar-chart-bar[data-year='" + d.year + "']");
-        bar.style("fill", "steelblue");
-    });
+ // Add interaction
+points.on("mouseover", function(event, d) {
+    // Highlight the corresponding bar in the bar chart
+    var bar = d3.select("#bar-chart").select(".bar-chart-bar[data-year='" + d.year + "']");
+    bar.style("fill", "red");
+
+    // Highlight the corresponding slice in the pie chart
+    var slice = d3.select("#pie-chart").select(".arc[data-authorcount='" + d.authorcount + "']");
+    // Save the original color
+    d.originalColor = slice.select("path").style("fill");
+    // Change the color to red
+    slice.select("path").style("fill", "red");
+}).on("mouseout", function(event, d) {
+    // Remove the highlight from the bar in the bar chart
+    var bar = d3.select("#bar-chart").select(".bar-chart-bar[data-year='" + d.year + "']");
+    bar.style("fill", "steelblue");
+
+    // Remove the highlight from the slice in the pie chart
+    var slice = d3.select("#pie-chart").select(".arc[data-authorcount='" + d.authorcount + "']");
+    // Restore the original color
+    slice.select("path").style("fill", d.originalColor);
+});
+
 }
 
 // Prepare the data for the scatter plot
